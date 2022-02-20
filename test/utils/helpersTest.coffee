@@ -41,7 +41,13 @@ describe 'helpers', ->
     testUtils.when(fs.existsSync '/tmp')
     .describe 'mkdirs', ->
         origCwd = process.cwd()
-        folders = ['/tmp/coffeeCoverageTest', '/tmp/coffeeCoverageTest/one', '/tmp/coffeeCoverageTest/one/two']
+        folders = [
+            '/tmp/coffeeCoverageTest'
+            '/tmp/coffeeCoverageTest/one'
+            '/tmp/coffeeCoverageTest/one/two'
+        ].map (p) ->
+            path.join p
+
         nukeFolders = ->
             _.clone(folders).reverse().forEach (folder) ->
                 if fs.existsSync folder then fs.rmdirSync folder
@@ -65,8 +71,8 @@ describe 'helpers', ->
 
         it "should create relative path", ->
             process.chdir '/tmp'
-            expect(helpers.mkdirs('coffeeCoverageTest/one/two')).to.be.true
-            expect(fs.existsSync('/tmp/coffeeCoverageTest/one/two')).to.be.true
+            expect(helpers.mkdirs(path.join('coffeeCoverageTest/one/two'))).to.be.true
+            expect(fs.existsSync(path.join('/tmp/coffeeCoverageTest/one/two'))).to.be.true
 
 
 
