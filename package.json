@@ -12,7 +12,7 @@
     "jscoverage",
     "coveralls"
   ],
-  "version": "0.0.0-semantic-release",
+  "version": "3.0.2-pre",
   "author": "Benbria (http://www.benbria.com/)",
   "contributors": [
     "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
@@ -45,13 +45,11 @@
     "pkginfo": ">=0.2.3"
   },
   "devDependencies": {
-    "@benbria/semantic-release-config": "^1.0.0",
     "benchmark": "^2.0.0",
     "chai": "^3.0.0",
     "coveralls": "^3.0.2",
     "istanbul": "0.4.5",
     "mocha": "^9.2.0",
-    "semantic-release": "^19.0.2",
     "sinon": "^1.14.1"
   },
   "mocha": {
@@ -74,7 +72,6 @@
     "coverage-report": "istanbul report text-summary lcov",
     "build": "coffee -c -o lib src",
     "clean": "rm -rf lib coverage",
-    "distclean": "npm run clean && rm -rf node_modules",
-    "semantic-release": "semantic-release"
+    "distclean": "npm run clean && rm -rf node_modules"
   }
 }
