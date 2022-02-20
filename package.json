@@ -51,15 +51,22 @@
     "coveralls": "^3.0.2",
     "istanbul": "0.4.5",
     "mocha": "^9.2.0",
-    "semantic-release": "^15.12.5",
+    "semantic-release": "^19.0.2",
     "sinon": "^1.14.1"
   },
   "mocha": {
-    "extension": ["coffee"],
-    "require": ["coffeescript/register", "./register-istanbul"],
+    "extension": [
+      "coffee"
+    ],
+    "require": [
+      "coffeescript/register",
+      "./register-istanbul"
+    ],
     "reporter": "spec",
     "recursive": true,
-    "spec": ["test"]
+    "spec": [
+      "test"
+    ]
   },
   "scripts": {
     "prepare": "npm run build",
