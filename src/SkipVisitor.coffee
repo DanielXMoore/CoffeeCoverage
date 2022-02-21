@@ -24,7 +24,7 @@ PRAGMAS = [
             else if node.type isnt "If"
                 node = node.parent
 
-            unless node
+            if !node or node.type is "Root"
                 throw new Error "Pragma '#{match[0]}' at #{self._toLocString origNode} has no next statement"
 
             node.markAll 'skip', true
@@ -34,7 +34,11 @@ PRAGMAS = [
     {
         regex: /^!pragma\s+coverage-skip-block$/
         fn: (self, node, match, options={}) ->
-            parent = node.parent.parent.parent
+            parent = node.parent
+            while parent and parent.type != 'Block'
+              parent = parent.parent
+            unless parent
+                throw new Error "Could not find parent block"
 
             parent.markAll 'skip', true
 

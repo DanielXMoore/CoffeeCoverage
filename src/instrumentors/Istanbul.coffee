@@ -148,10 +148,8 @@ module.exports = class Istanbul
     # Called on each non-comment statement within a Block.  If a `visitXXX` exists for the
     # specific node type, it will also be called after `visitStatement`.
     visitStatement: (node) ->
-        grandParentType = node.parent?.parent?.node?.constructor?.name
-
-        if grandParentType is "StringWithInterpolations" and !node.parent.parent.skipped
-            node.parent.parent.skipped = true
+        grandParentType = node.parent?.parent?.type
+        if grandParentType is "StringWithInterpolations"
             return
 
         # Ignore nodes marked 'noCoverage'
@@ -291,7 +289,7 @@ module.exports = class Istanbul
 
         branchId = @branchMap.length + 1
         locations = []
-        locations = node.node.cases.map ([conditions, block]) =>
+        locations = node.node.cases.map ({block, conditions}) =>
             start = minLocation(
                 _.flatten([conditions], true)
                 .map( (condition) -> nodeToLocation(condition).start )
@@ -326,7 +324,7 @@ module.exports = class Istanbul
             locations
         }
 
-        node.node.cases.forEach ([conditions, block], index) =>
+        node.node.cases.forEach ({block, conditions}, index) =>
             caseNode = new NodeWrapper block, node, 'cases', index, node.depth + 1
             assert.equal caseNode.type, 'Block'
             caseNode.insertAtStart 'expressions', "#{@_prefix}.b[#{branchId}][#{index}]++"

@@ -239,8 +239,7 @@ describe "Istanbul tests", ->
             locations: [
                 {start: {line: 2, column: 4}, end: {line: 3, column: 22}}
                 {start: {line: 4, column: 4}, end: {line: 4, column: 30}}
-                # TODO: start should really be the start of the `else`.
-                {start: {line: 6, column: 8}, end: {line: 6, column: 22}}
+                {start: {line: 5, column: 4}, end: {line: 6, column: 22}}
             ]
         }
 
@@ -425,6 +424,27 @@ describe "Istanbul tests", ->
             loc: {start: {line: 1, column: 4}, end: {line: 3, column: 27}}
             decl: {start: {line: 1, column: 4}, end: {line: 1, column: 4}}
         }
+
+    it "should instrument string interpolation", ->
+        {instrumentor, result} = run '''
+            "Hi #{this}!"
+        '''
+
+        expect(instrumentor.statementMap.length).to.eql 2
+        expect(instrumentor.statementMap[0]).to.eql
+            start:
+                line: 1
+                column: 0
+            end:
+                line: 1
+                column: 12
+        expect(instrumentor.statementMap[1]).to.eql
+            start:
+                line: 1
+                column: 6
+            end:
+                line: 1
+                column: 9
 
     it.skip "should handle import and export statements", ->
         {instrumentor, result} = run """

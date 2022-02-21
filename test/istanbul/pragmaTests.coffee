@@ -273,7 +273,7 @@ module.exports = (run) ->
                         console.log "foo"
                         ### !pragma coverage-skip-next ###
                 """
-            .to.throw "Pragma '!pragma coverage-skip-next' at #{FILENAME} (3:39) has no next statement"
+            .to.throw "Pragma '!pragma coverage-skip-next' at #{FILENAME} (3:40) has no next statement"
 
             expect ->
                 run """
@@ -281,7 +281,7 @@ module.exports = (run) ->
                         console.log "foo"
                     ### istanbul ignore if ###
                 """
-            .to.throw "Pragma 'istanbul ignore if' at #{FILENAME} (3:27) has no next statement"
+            .to.throw "Pragma 'istanbul ignore if' at #{FILENAME} (3:28) has no next statement"
 
         it "should throw an error when an 'if' pragma isn't before an 'if'", ->
             expect ->
@@ -290,4 +290,4 @@ module.exports = (run) ->
                     myFunc = ->
                         console.log "foo"
                 """
-            .to.throw "Statement after pragma \'istanbul ignore if\' at #{FILENAME} (1:1) is not of type If"
+            .to.throw "Statement after pragma \'istanbul ignore if\' at #{FILENAME} (1:27) is not of type If"

@@ -169,7 +169,7 @@ forNodeAndChildren = (node, fn) ->
     node.eachChild fn
 
 compile = (csSource, node) ->
-    compiled = coffeeScript.nodes(csSource)
+    compiled = coffeeScript.nodes(csSource).body
 
     line = if !node.locationData
         # In latest coffee-script, some blocks do not have locationData?
