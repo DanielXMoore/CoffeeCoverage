@@ -1,7 +1,5 @@
-exports.register = require './register'
-exports.CoverageInstrumentor = require('./coffeeCoverage').CoverageInstrumentor
-exports.findIstanbulVariable = require('./instrumentors/Istanbul').findIstanbulVariable
-
-# Add 'version', 'author', and 'contributors' to our exports
-require('pkginfo') module, 'version', 'author', 'contributors'
-
+Object.assign exports,
+  register: require './register'
+  CoverageInstrumentor: require('./coffeeCoverage').CoverageInstrumentor
+  findIstanbulVariable: require('./instrumentors/Istanbul').findIstanbulVariable
+  version: require("../package.json").version
