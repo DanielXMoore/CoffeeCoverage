@@ -7,7 +7,7 @@ CoffeeCoverage
 
 Instruments CoffeeScript files for code coverage.  Compiles .coffee files to .js files, and adds JSCoverage or Istanbul style instrumentation for the original coffee script source.
 
-[![NPM](https://nodei.co/npm/coffeecoverage.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/@danielx/coffeecoverage)
+[![NPM](https://nodei.co/npm/@danielx/coffeecoverage.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/@danielx/coffeecoverage)
 
 Features
 --------

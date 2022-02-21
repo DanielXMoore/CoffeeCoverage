@@ -12,7 +12,7 @@
     "jscoverage",
     "coveralls"
   ],
-  "version": "0.0.1-pre",
+  "version": "0.0.3-pre",
   "author": "Daniel X. Moore",
   "contributors": [
     "Daniel X Moore (https://danielx.net)",
