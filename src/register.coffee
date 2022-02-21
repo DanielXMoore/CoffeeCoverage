@@ -115,30 +115,6 @@ module.exports = (options={}) ->
     replaceHandler ".litcoffee"
     replaceHandler ".coffee.md"
 
-    # legacy option for `streamlinejs` < 1.x.
-    # NOTE: deprecated. Use `options.postProcessors` instead.
-    if options.streamlinejs
-        console.warn "\noptions.streamlinejs is deprecated. Please use options.postProcessors\n"
-        try
-            streamlineTransform = require 'streamline/lib/callbacks/transform'
-        catch err
-            throw new Error "Could not load streamline transformer < 1.x"
-
-        origStreamineCoffeeHandler = require.extensions["._coffee"]
-
-        require.extensions["._coffee"] = (module, fileName) ->
-            if excludeFile fileName, options
-                return origStreamineCoffeeHandler.call this, module, fileName
-
-            transformed = compiledCache.get fileName, ->
-                compiled = instrumentFile fileName
-                streamlineOptions = if _.isObject options.streamlinejs then options.streamlinejs else {}
-                streamlineOptions = _.assign {}, streamlineOptions, {sourceName: fileName}
-                transformed = streamlineTransform.transform(compiled, streamlineOptions)
-                return transformed
-
-            module._compile transformed, fileName
-
     # setup any custom post processors
     if _.isArray(options.postProcessors) and options.postProcessors.length
         options.postProcessors.forEach (processorOpts={}) ->
