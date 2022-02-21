@@ -76,8 +76,7 @@ module.exports = class NodeWrapper
 
     isMarked: (varName, value=true) -> @node.coffeeCoverage?[varName] is value
 
-    # Returns a NodeWrapper for the given child.  This only works if the child is not an array
-    # (e.g. `Block.expressions`)
+    # Returns a NodeWrapper for the given child.
     child: (name, index=null) ->
         child = @node[name]
         if !child then return null
@@ -87,7 +86,6 @@ module.exports = class NodeWrapper
             return new NodeWrapper child, this, name, 0, @depth + 1
         else
             assert _.isArray child
-            if !child[index] then return null
             return new NodeWrapper child[index], this, name, index, @depth + 1
 
     # `@childIndex` is a hint, since nodes can move around.  This updateds @childIndex if
@@ -161,7 +159,7 @@ module.exports = class NodeWrapper
         answer = ''
         if @childName then answer += "#{@childName}[#{@childIndex}]:"
         answer += @type
-        if @node.locationData? then answer += " (#{@node.locationData?.first_line + 1}:#{@node.locationData.first_column + 1})"
+        answer += " (#{@node.locationData?.first_line + 1}:#{@node.locationData.first_column + 1})"
         answer
 
 forNodeAndChildren = (node, fn) ->
@@ -171,11 +169,7 @@ forNodeAndChildren = (node, fn) ->
 compile = (csSource, node) ->
     compiled = coffeeScript.nodes(csSource).body
 
-    line = if !node.locationData
-        # In latest coffee-script, some blocks do not have locationData?
-        0
-    else
-        line = node.locationData.first_line
+    line = node.locationData.first_line
 
     forNodeAndChildren compiled, (n) ->
         # Fix up location data for each instrumented line.  Make these all 0-length,
