@@ -5,6 +5,8 @@
   - Published to npm at https://www.npmjs.com/package/@danielx/coffeecoverage
   - Updated to CoffeeScript 2.6.1
   - Removed deprecated streamlinejs < 1.x support
+  - Updated / Removed vulnerable dependencies
+  - [globs with leading forward slash should match relative to project root](https://github.com/benbria/coffee-coverage/pull/77)
 
 ### v3.0.0
   - This version works with CoffeeScript v2

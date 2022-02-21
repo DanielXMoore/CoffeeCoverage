@@ -68,11 +68,11 @@
     ]
   },
   "scripts": {
-    "prepare": "npm run build",
-    "test": "npm run build && mocha && istanbul report",
+    "prepare": "yarn build",
+    "test": "yarn build && mocha && istanbul report",
     "coverage-report": "istanbul report text-summary lcov",
     "build": "coffee -c -o lib src",
     "clean": "rm -rf lib coverage",
-    "distclean": "npm run clean && rm -rf node_modules"
+    "distclean": "yarn clean && rm -rf node_modules"
   }
 }
