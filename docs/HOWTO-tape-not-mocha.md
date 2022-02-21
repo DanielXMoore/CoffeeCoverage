@@ -1,14 +1,14 @@
 # Tape not Mocha
 
-It may be hard to believe, but some people don't really like [Mocha](//mochajs.org/). Some of us prefer something simpler and less magical, like [tape](//www.npmjs.com/package/tape). We can still use **coffee-coverage**!
+It may be hard to believe, but some people don't really like [Mocha](//mochajs.org/). Some of us prefer something simpler and less magical, like [tape](//www.npmjs.com/package/tape). We can still use **CoffeeCoverage**!
 
 ## Setup
 
 First install some necessary modules. Use `--save-dev` because these are only necessary for testing, not for the basic operation of your project.
 
-    npm install --save-dev istanbul coffee-coverage tape coffeetape faucet
+    npm install --save-dev istanbul @danielx/coffeecoverage tape coffeetape faucet
 
-[`faucet`](//www.npmjs.com/package/faucet) isn't required, since it is just a pretty-printer, and there are [loads of alternatives](//www.npmjs.com/package/tape#user-content-pretty-reporters) -- pick the one you like. If you don't care for your tests to be pretty, then don't install any of them. Actually not even tape is *really* required, although that's what this HOWTO is about. The point is that **coffee-coverage** works with anything that runs your test code. In this example we use [coffeetape](//www.npmjs.com/package/coffeetape) (so e.g. `test.coffee` never gets transpiled to disk), but we could use plain `node`, plain [`coffee`](//coffeescript.org/#usage), [`tape`](//www.npmjs.com/package/tape#usage), [gulp](//gulpjs.com/), or whatever.
+[`faucet`](//www.npmjs.com/package/faucet) isn't required, since it is just a pretty-printer, and there are [loads of alternatives](//www.npmjs.com/package/tape#user-content-pretty-reporters) -- pick the one you like. If you don't care for your tests to be pretty, then don't install any of them. Actually not even tape is *really* required, although that's what this HOWTO is about. The point is that **CoffeeCoverage** works with anything that runs your test code. In this example we use [coffeetape](//www.npmjs.com/package/coffeetape) (so e.g. `test.coffee` never gets transpiled to disk), but we could use plain `node`, plain [`coffee`](//coffeescript.org/#usage), [`tape`](//www.npmjs.com/package/tape#usage), [gulp](//gulpjs.com/), or whatever.
 
 ## Write Tests
 

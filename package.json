@@ -1,5 +1,5 @@
 {
-  "name": "coffee-coverage",
+  "name": "@danielx/coffeecoverage",
   "description": "Istanbul and JSCoverage-style instrumentation for CoffeeScript files.",
   "keywords": [
     "javascript",
@@ -12,15 +12,16 @@
     "jscoverage",
     "coveralls"
   ],
-  "version": "3.0.2-pre",
-  "author": "Benbria (http://www.benbria.com/)",
+  "version": "0.0.1-pre",
+  "author": "Daniel X. Moore",
   "contributors": [
+    "Daniel X Moore (https://danielx.net)",
     "Jason Walton <dev@lucid.thedreaming.org> (https://github.com/jwalton)",
     "Carsten Klein (https://github.com/silkentrance)",
     "Drew Stokes <drew@drewstokes.com> (https://github.com/dstokes)",
     "Vyacheslav Slinko <vyacheslav.slinko@gmail.com> (https://github.com/vslinko)",
     "David Dahl (https://github.com/effata)",
-    "David Kirstein (https://github.com/frozenice-)",
+    "David Kirstein (https://github.com/frozenice)",
     "Dmitry Petrov (https://github.com/can3p)",
     "Devon Govett (https://github.com/devongovett)",
     "Emanuele Tamponi (https://glitch.com/@etamponi)"
@@ -29,7 +30,7 @@
   "main": "./lib/index",
   "repository": {
     "type": "git",
-    "url": "https://github.com/benbria/coffee-coverage.git"
+    "url": "https://github.com/DanielXMoore/CoffeeCoverage.git"
   },
   "bin": {
     "coffeeCoverage": "./bin/coffeecoverage"

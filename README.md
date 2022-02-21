@@ -1,18 +1,13 @@
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-
 Istanbul and JSCoverage-style instrumentation for CoffeeScript files.
 
-Benbria CoffeeCoverage
-======================
+CoffeeCoverage
+==============
 
-[![Build Status](https://travis-ci.org/benbria/coffee-coverage.svg?branch=master)](https://travis-ci.org/benbria/coffee-coverage)
-[![Coverage Status](https://coveralls.io/repos/benbria/coffee-coverage/badge.svg?branch=master)](https://coveralls.io/r/benbria/coffee-coverage?branch=master)
-[![Dependency Status](https://david-dm.org/benbria/coffee-coverage.svg)](https://david-dm.org/benbria/coffee-coverage)
-[![devDependency Status](https://david-dm.org/benbria/coffee-coverage/dev-status.svg)](https://david-dm.org/benbria/coffee-coverage#info=devDependencies)
+[![Coverage Status](https://coveralls.io/repos/DanielXMoore/CoffeeCoverage/badge.svg?branch=master)](https://coveralls.io/r/DanielXMoore/CoffeeCoverage?branch=master)
 
 Instruments CoffeeScript files for code coverage.  Compiles .coffee files to .js files, and adds JSCoverage or Istanbul style instrumentation for the original coffee script source.
 
-[![NPM](https://nodei.co/npm/coffee-coverage.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/coffee-coverage)
+[![NPM](https://nodei.co/npm/coffeecoverage.png?downloads=true&downloadRank=true&stars=true)](https://npmjs.org/package/@danielx/coffeecoverage)
 
 Features
 --------
@@ -33,12 +28,11 @@ Assuming you have a folder named "test" full of mocha tests, which directly load
 files, then from your project's folder, run:
 
 ```bash
+npm install --save-dev @danielx/coffeecoverage
+npm install --save-dev istanbul
+mocha --recursive --compilers coffee:coffeescript/register --require @danielx/coffeecoverage/register-istanbul test
 
-$ npm install --save-dev coffee-coverage
-$ npm install --save-dev istanbul
-$ mocha --recursive --compilers coffee:coffeescript/register --require coffee-coverage/register-istanbul test
-
-$ ./node_modules/.bin/istanbul report
+./node_modules/.bin/istanbul report
 ```
 
 You should now have an Istanbul coverage report in ./coverage/lcov-report/index.html.
@@ -55,14 +49,14 @@ Tutorials:
 * [Travis-CI and Coveralls](./docs/HOWTO-travisci-and-coveralls.md)
 * [Ignoring code with Pragmas](./docs/pragmas.md)
 
-Have coffee-coverage working in a setup not described above?
-[Raise an issue](https://github.com/benbria/coffee-coverage/issues/new) and let us know how you're
-using coffee-coverage, so we can document it here.
+Have CoffeeCoverage working in a setup not described above?
+[Raise an issue](https://github.com/DanielXMoore/CoffeeCoverage/issues/new) and let us know how you're
+using CoffeeCoverage, so we can document it here.
 
 What it Does
 ------------
 
-Benbria CoffeeCoverage is a tool for determining the coverage of your unit tests.  It does this
+CoffeeCoverage is a tool for determining the coverage of your unit tests.  It does this
 by instrumenting .coffee files to see how often each line, branch, or function is executed.
 CoffeeCoverage is capable of producing both [Istanbul](./docs/HOWTO-istanbul.md) and
 [JSCoverage](./docs/HOWTO-jscoverage.md) style instrumentation.

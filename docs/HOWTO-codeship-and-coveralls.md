@@ -12,12 +12,12 @@ project set up in [Coveralls.io](https://coveralls.io/).
 Assuming you have a coffeescript project with tests cases stored in /test, and you are using
 mocha to run your unit tests, `cd` to your project and run:
 
-    npm install --save-dev coffee-coverage istanbul coveralls
+    npm install --save-dev @danielx/coffeecoverage istanbul coveralls
 
 Save your mocha options in `./test/mocha.opts`:
 
     --compilers coffee:coffeescript/register
-    --require coffee-coverage/register-istanbul
+    --require @danielx/coffeecoverage/register-istanbul
     --recursive
 
 In `package.json`, add:

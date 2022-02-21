@@ -1,4 +1,4 @@
-coffee-coverage vs. ibrik
+CoffeeCoverage vs. ibrik
 -------------------------
 
 Instrumentation
@@ -26,7 +26,7 @@ that the JavaScript version has a `(function(){...}).call(this);` wrapper around
 The "branch" comes from the default parameter, which will compile to an extra statement
 `if (x == null) { x = 7; }`.
 
-Here's the output from coffee-coverage:
+Here's the output from CoffeeCoverage:
 
     Statements   : 100% ( 4/4 )
     Branches     : 100% ( 0/0 )

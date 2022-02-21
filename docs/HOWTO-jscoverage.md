@@ -4,11 +4,12 @@ Running with [JSCoverage](http://siliconforks.com/jscoverage/)
 Contents
 ========
 
-* [Quick Start with Mocha](#quick-start-with-mocha)
-  * [Run with NPM](#run-with-npm)
-  * [Writing a Custom Loader](#writing-a-custom-loader)
-  * [Precompiled Source](#precompiled-source)
-* [Some Weirdness with Line Numbers](#some-weirdness-with-line-numbers)
+- [Contents](#contents)
+  - [Quick Start with Mocha](#quick-start-with-mocha)
+- [Run with NPM](#run-with-npm)
+- [Writing a Custom Loader](#writing-a-custom-loader)
+- [Precompiled Source](#precompiled-source)
+  - [Some Weirdness with Line Numbers](#some-weirdness-with-line-numbers)
 
 Quick Start with Mocha
 ----------------------
@@ -17,9 +18,9 @@ Assuming you have a coffeescript project with tests cases stored in /test, and y
 mocha to run your unit tests, `cd` to your project and run:
 
 ```sh
-$ npm install --save-dev coffee-coverage
+$ npm install --save-dev @danielx/coffeecoverage
 $ mocha --recursive \
-    --require coffee-coverage/register \
+    --require @danielx/coffeecoverage/register \
     --reporter html-cov \
     test > coverage.html
 ```
@@ -30,11 +31,11 @@ a coverage report to coverage.html.
 This should work for the majority of projects, but if it doesn't quite do what you want, you can
 set [custom options with a loader](#writing-a-custom-loader).
 
-You can control how `coffee-coverage/register` will work with the following environment variables:
+You can control how `@danielx/coffeecoverage/register` will work with the following environment variables:
 
-* `COFFEECOV_INIT_ALL` - (defaults to 'true') if set to 'true', then coffee-coverage will
+* `COFFEECOV_INIT_ALL` - (defaults to 'true') if set to 'true', then CoffeeCoverage will
   recursively walk through the current folder looking for .coffee files at startup, so you will see
-  0% coverage for files that are never loaded.  coffee-coverage will ignore the './test',
+  0% coverage for files that are never loaded.  CoffeeCoverage will ignore the './test',
   './node_modules', and './.git' folders.  If you want to ignore other folders, see
   [#how to write a custom loader](#writing-a-custom-loader).
 
@@ -50,7 +51,7 @@ In package.json, add:
 
 ```json
 "scripts": {
-    "coverage": "mocha --require coffee-coverage/register --reporter html-cov > coverage.html"
+    "coverage": "mocha --require @danielx/coffeecoverage/register --reporter html-cov > coverage.html"
 }
 ```
 
@@ -59,11 +60,11 @@ now you can run `npm run coverage` to run your tests and generate a coverage rep
 Writing a Custom Loader
 =======================
 
-If the defaults in `coffee-coverage/register-istanbul` don't work for you, you can write a custom
+If the defaults in `@danielx/coffeecoverage/register-istanbul` don't work for you, you can write a custom
 loader.  Save this in "coffee-coverage-loader.js":
 
 ```js
-require('coffee-coverage').register({
+require('@danielx/coffeecoverage').register({
   instrumentor: 'jscoverage',
   basePath: process.cwd(),
   path: 'relative'
@@ -124,7 +125,7 @@ first line of the CoffeeScript, even though we've only run this chunk of CoffeeS
 CoffeeCoverage tries to work around this by only instrumenting the first statement it finds on a
 line, so in the above example, we'd instrument the "if" and the "z()", but not the "y()".
 
-Also, it's worth noting a minor difference in the way coffee-coverage compiles statements.  The
+Also, it's worth noting a minor difference in the way CoffeeCoverage compiles statements.  The
 following coffee code:
 
 ```coffeescript

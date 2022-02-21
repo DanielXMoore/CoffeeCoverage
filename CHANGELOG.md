@@ -1,4 +1,10 @@
-# coffee-coverage Changelog
+# Changelog
+
+### v4.0.0
+  - Forked to https://github.com/DanielXMoore/CoffeeCoverage/
+  - Published to npm at https://www.npmjs.com/package/@danielx/coffeecoverage
+  - Updated to CoffeeScript 2.6.1
+  - Removed deprecated streamlinejs < 1.x support
 
 ### v3.0.0
   - This version works with CoffeeScript v2

@@ -1,11 +1,3 @@
-
-#### CoffeeCoverage
-#
-# JSCoverage-style instrumentation for CoffeeScript files.
-#
-# By Jason Walton, Benbria
-#
-
 assert       = require 'assert'
 events       = require 'events'
 fs           = require 'fs'

@@ -4,10 +4,11 @@ Running with [Istanbul](https://github.com/gotwarlost/istanbul)
 Contents
 ========
 
-* [Quick Start with Mocha](#quick-start-with-mocha)
-  * [Mixed JS and Coffee Projects](#mixed-js-and-coffee-projects)
-  * [Run with NPM](#run-with-npm)
-  * [Writing a Custom Loader](#writing-a-custom-loader)
+- [Contents](#contents)
+  - [Quick Start with Mocha](#quick-start-with-mocha)
+- [Mixed JS and Coffee Projects](#mixed-js-and-coffee-projects)
+- [Run with NPM](#run-with-npm)
+- [Writing a Custom Loader](#writing-a-custom-loader)
 
 Quick Start with Mocha
 ----------------------
@@ -15,10 +16,10 @@ Quick Start with Mocha
 Assuming you have a coffeescript project with tests cases stored in /test, and you are using
 mocha to run your unit tests, `cd` to your project and run:
 
-    npm install --save-dev coffee-coverage istanbul
+    npm install --save-dev @danielx/coffeecoverage istanbul
     mocha --recursive \
           --compilers coffee:coffeescript/register \
-          --require coffee-coverage/register-istanbul \
+          --require @danielx/coffeecoverage/register-istanbul \
           test
     ./node_modules/.bin/istanbul report
 
@@ -28,14 +29,14 @@ This should work for the majority of projects, but if it doesn't quite do what y
 tweak a few things with environment variables, or you can set up
 [custom options with a loader](#writing-a-custom-loader).
 
-You can control how `coffee-coverage/register-istanbul` will work with the following environment
+You can control how `@danielx/coffeecoverage/register-istanbul` will work with the following environment
 variables:
 
 * `COFFEECOV_OUT` - (defaults to 'coverage/coverage-coffee.json') location to write coverage JSON
   report when your process exits.
-* `COFFEECOV_INIT_ALL` - (defaults to 'true') if set to 'true', then coffee-coverage will
+* `COFFEECOV_INIT_ALL` - (defaults to 'true') if set to 'true', then CoffeeCoverage will
   recursively walk through the current folder looking for .coffee files at startup, so you will see
-  0% coverage for files that are never loaded.  coffee-coverage will ignore the './test',
+  0% coverage for files that are never loaded.  CoffeeCoverage will ignore the './test',
   './node_modules', and './.git' folders.  If you want to ignore other folders, see
   [#how to write a custom loader](#writing-a-custom-loader).
 
@@ -46,11 +47,11 @@ Mixed JS and Coffee Projects
 Assuming you have a project with a mix of .js and .coffee files in /src, and compiled code in /lib,
 and your tests are set up to load code from /src, then run:
 
-    npm install --save-dev coffee-coverage
+    npm install --save-dev @danielx/coffeecoverage
     npm install --save-dev istanbul
     ./node_modules/.bin/istanbul cover -x 'lib/**' ./node_modules/.bin/_mocha -- \
         --compilers coffee:coffeescript/register \
-        --require coffee-coverage/register-istanbul \
+        --require @danielx/coffeecoverage/register-istanbul \
         --recursive \
         test
 
@@ -63,7 +64,7 @@ Run with NPM
 Save your mocha options in `/test/mocha.opts`:
 
     --compilers coffee:coffeescript/register
-    --require coffee-coverage/register-istanbul
+    --require @danielx/coffeecoverage/register-istanbul
     --recursive
 
 In package.json, add:
@@ -77,11 +78,11 @@ now you can run `npm test` to run your tests and generate a coverage report.
 Writing a Custom Loader
 =======================
 
-If the defaults in `coffee-coverage/register-istanbul` don't work for you, you can write a custom
+If the defaults in `@danielx/coffeecoverage/register-istanbul` don't work for you, you can write a custom
 loader.  Save this in "coffee-coverage-loader.js":
 
     var path = require('path');
-    var coffeeCoverage = require('coffee-coverage');
+    var coffeeCoverage = require('@danielx/coffeecoverage');
     var projectRoot = path.resolve(__dirname, "../..");
     var coverageVar = coffeeCoverage.findIstanbulVariable();
     // Only write a coverage report if we're not running inside of Istanbul.

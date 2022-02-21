@@ -1,7 +1,7 @@
 Pragmas
 -------
 
-coffee-coverage supports conditional instrumentation with pragmas.  Pragmas work for both Istanbul
+CoffeeCoverage supports conditional instrumentation with pragmas.  Pragmas work for both Istanbul
 and JSCoverage instrumentation.
 
 For example, consider the following code block:
@@ -52,7 +52,7 @@ Reference
 ### ### !pragma coverage-skip-next ### ###
 
 Skips the next statement in the current block, and all children of that statement (for example,
-a `### !pragma coverage-skip-next ###` before a `while` statement will make coffee-coverage ignore
+a `### !pragma coverage-skip-next ###` before a `while` statement will make CoffeeCoverage ignore
 the `while` statement itself, as well as all the statements inside the `while` block.)
 
 ### ### !pragma coverage-skip-block ### ###
@@ -88,7 +88,7 @@ for instrumentation do not exist.
 
 ### Istanbul Pragmas
 
-coffee-coverage will respect [Istanbul style pragmas](https://github.com/gotwarlost/istanbul#ignoring-code-for-coverage).
+CoffeeCoverage will respect [Istanbul style pragmas](https://github.com/gotwarlost/istanbul#ignoring-code-for-coverage).
 
     ### istanbul ignore if ###
     if process.env.NODE_ENV is 'production'
