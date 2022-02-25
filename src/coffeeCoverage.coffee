@@ -3,7 +3,7 @@ events       = require 'events'
 fs           = require 'fs'
 util         = require 'util'
 path         = require 'path'
-coffeeScript = require 'coffeescript'
+CoffeeScript = require 'coffeescript'
 _            = require 'lodash'
 
 NodeWrapper                     = require './NodeWrapper'
@@ -243,7 +243,7 @@ class exports.CoverageInstrumentor extends events.EventEmitter
         answer = @instrumentCoffee path.resolve(sourceFile), data, effectiveOptions
 
         if outFile
-            writeToFile outFile, (answer.init + answer.js)
+            writeToFile outFile, answer.js
 
         return answer
 
@@ -302,16 +302,19 @@ exports._runInstrumentor = (instrumentor, fileName, source, options={}) ->
         options.log?.debug? "Instrumenting #{fileName}"
         coffeeOptions = {
             bare: options.bare ? false
-            literate: /\.(litcoffee|coffee\.md)$/.test(fileName)
+            literate: CoffeeScript.helpers.isLiterate(fileName)
+            filename: fileName
+            sourceFiles: [fileName]
+            inlineMap: true
         }
 
-        tokens = coffeeScript.tokens source, coffeeOptions
+        tokens = CoffeeScript.tokens source, coffeeOptions
 
         # collect referenced variables
         coffeeOptions.referencedVars = _.uniq(token[1] for token in tokens when token[0] == 'IDENTIFIER')
 
         # convert tokens to ast
-        ast = coffeeScript.nodes(tokens)
+        ast = CoffeeScript.nodes(tokens)
     catch err
         throw new CoverageError("Could not parse #{fileName}: #{err.stack}")
 
@@ -349,15 +352,57 @@ exports._runInstrumentor = (instrumentor, fileName, source, options={}) ->
 
     # Compile the instrumented CoffeeScript and write it to the JS file.
     try
-        js = ast.compile coffeeOptions
+        # Adding source maps like CoffeeScript does:
+        # https://github.com/jashkenas/coffeescript/blob/ed6733d17746eeafca415cc261cce92e6f840ff6/src/coffeescript.coffee#L130
+        fragments = ast.compileToFragments coffeeOptions
+
+        # Add init fragment with empty location data
+        fragments.unshift
+            code: init
+
+        map = new SourceMap
+        currentLine = 0
+        currentColumn = 0
+        js = ""
+
+        for fragment in fragments
+            if fragment.locationData and not /^[;\s]*$/.test fragment.code
+                map.add(
+                    [fragment.locationData.first_line, fragment.locationData.first_column]
+                    [currentLine, currentColumn]
+                    {noReplace: true}
+                )
+            newLines = CoffeeScript.helpers.count fragment.code, "\n"
+            currentLine += newLines
+            if newLines
+                currentColumn = fragment.code.length - (fragment.code.lastIndexOf("\n") + 1)
+            else
+                currentColumn += fragment.code.length
+
+            js += fragment.code
+
+        # Register the compiled file, source, and map to hook into CoffeeScript's Error.prepareStackTrace remapping
+        CoffeeScript.registerCompiled fileName, source, map
+
     catch err
         ### !pragma coverage-skip-block ###
         throw new CoverageError("Could not compile #{fileName} after instrumenting: #{err.stack}")
 
-    answer = {
+    return {
         init: init
         js: js
         lines: instrumentor.getInstrumentedLineCount()
     }
 
-    return answer
+# CoffeeScript helpers to create source maps
+
+SourceMap = require('coffeescript/lib/coffeescript/sourcemap')
+
+base64encode = (src) -> switch
+  when typeof Buffer is 'function'
+    Buffer.from(src).toString('base64')
+  when typeof btoa is 'function'
+    btoa encodeURIComponent(src).replace /%([0-9A-F]{2})/g, (match, p1) ->
+      String.fromCharCode '0x' + p1
+  else
+    throw new Error('Unable to base64 encode inline sourcemap.')

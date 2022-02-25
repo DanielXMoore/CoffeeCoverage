@@ -4,6 +4,7 @@
   - Forked to https://github.com/DanielXMoore/CoffeeCoverage/
   - Published to npm at https://www.npmjs.com/package/@danielx/coffeecoverage
   - Updated to CoffeeScript 2.6.1
+  - Fixed stack traces in Node.js
   - Removed deprecated streamlinejs < 1.x support
   - Updated / Removed vulnerable dependencies
   - [globs with leading forward slash should match relative to project root](https://github.com/benbria/coffee-coverage/pull/77)

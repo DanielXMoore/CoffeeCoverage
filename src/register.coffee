@@ -100,7 +100,7 @@ module.exports = (options={}) ->
     instrumentFile = (fileName) ->
         content = fs.readFileSync fileName, 'utf8'
         instrumented = coverage.instrumentCoffee fileName, content
-        return instrumented.init + instrumented.js
+        return instrumented.js
 
     replaceHandler = (extension) ->
         origCoffeeHandler = require.extensions[extension]

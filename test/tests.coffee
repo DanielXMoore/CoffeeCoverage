@@ -204,3 +204,6 @@ describe "Coverage tests", ->
 
         sinon.assert.callCount(postProcessors[0].fn, 1)
         expect(bar.baz()).to.eq 5
+
+    it "should know line numbers", ->
+      require('../src/utils/error')
