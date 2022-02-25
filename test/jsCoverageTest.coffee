@@ -44,7 +44,8 @@ describe "JSCoverage tests", ->
                 say "!"
         """
 
-        code = instrumentor.instrumentCoffee("example.coffee", source).js
+        {init, js} = instrumentor.instrumentCoffee("example.coffee", source)
+        code = js.replace(init, "")
         expect(code.trim()).to.equal '''
             (function() {
               _myCoverageVar["example.coffee"][1]++;
@@ -164,9 +165,12 @@ describe "JSCoverage tests", ->
             if x then run("a") else run("b")
         """, {l: 1}
 
+        {init, js} = result
+        code = js.replace(init, "")
+
         # There should only be one occurance of coverage var.
-        firstIndexOf = result.js.indexOf COVERAGE_VAR
-        lastIndexOf = result.js.lastIndexOf COVERAGE_VAR
+        firstIndexOf = code.indexOf COVERAGE_VAR
+        lastIndexOf = code.lastIndexOf COVERAGE_VAR
         expect(firstIndexOf).to.not.equal -1
         expect(firstIndexOf is lastIndexOf).to.be.true
 
