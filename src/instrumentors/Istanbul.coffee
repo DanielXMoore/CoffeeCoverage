@@ -441,6 +441,7 @@ module.exports = class Istanbul
                 }
             })(typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : this);
             if (! #{@_prefix}) { #{@_prefix} = #{JSON.stringify initData} }
+
         """
 
     getInstrumentedLineCount: -> @instrumentedLineCount

@@ -204,3 +204,10 @@ describe "Coverage tests", ->
 
         sinon.assert.callCount(postProcessors[0].fn, 1)
         expect(bar.baz()).to.eq 5
+
+    it "should properly map line numbers in error stack traces", ->
+        try
+            require('../src/utils/error')
+        catch e
+            [rest..., line, col] = e.stack.split("\n")[1].split(":")
+            assert.equal line, 3

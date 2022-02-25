@@ -164,26 +164,19 @@ module.exports = class NodeWrapper
 
 forNodeAndChildren = (node, fn) ->
     fn node
-    node.eachChild fn
+    node.traverseChildren false, fn
 
 compile = (csSource, node) ->
     compiled = coffeeScript.nodes(csSource).body
 
-    line = node.locationData.first_line
-
     forNodeAndChildren compiled, (n) ->
-        # Fix up location data for each instrumented line.  Make these all 0-length,
-        # so we don't have to rewrite the location data for all the non-generated
-        # nodes in the tree.
-        n.locationData =
-            first_line: line - 1 # -1 because `line` is 1-based
-            first_column: 0
-            last_line: line - 1
-            last_column: 0
+        # Don't use generated nodes in source maps
+        delete n.locationData
 
         # Mark each node as coffee-coverage generated, so we won't try to instrument our
         # instrumented lines.
         n.coffeeCoverage ?= {}
         n.coffeeCoverage.generated = true
+        return
 
     return compiled
