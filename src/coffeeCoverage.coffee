@@ -397,12 +397,3 @@ exports._runInstrumentor = (instrumentor, fileName, source, options={}) ->
 # CoffeeScript helpers to create source maps
 
 SourceMap = require('coffeescript/lib/coffeescript/sourcemap')
-
-base64encode = (src) -> switch
-  when typeof Buffer is 'function'
-    Buffer.from(src).toString('base64')
-  when typeof btoa is 'function'
-    btoa encodeURIComponent(src).replace /%([0-9A-F]{2})/g, (match, p1) ->
-      String.fromCharCode '0x' + p1
-  else
-    throw new Error('Unable to base64 encode inline sourcemap.')
