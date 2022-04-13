@@ -27,7 +27,6 @@ class CoverageError extends Error
 factoryDefaults =
     exclude: []
     recursive: true
-    bare: false
     instrumentor: 'jscoverage'
 
 exports.getInstrumentorClass = getInstrumentorClass = (instrumentorName) ->
@@ -291,7 +290,7 @@ class exports.CoverageInstrumentor extends events.EventEmitter
 # * `instrumentor` an instance of an instrumentor class to run on.
 # * `fileName` the absolute path of the source file.
 # * `source` a string containing the sourcecode the instrument.
-# * `options.bare` true if we should compile bare coffeescript (no enclosing function).
+# * `options.bare` false if we should enclose with a function.
 # * `options.log` log object.
 #
 exports._runInstrumentor = (instrumentor, fileName, source, options={}) ->
@@ -301,7 +300,7 @@ exports._runInstrumentor = (instrumentor, fileName, source, options={}) ->
     try
         options.log?.debug? "Instrumenting #{fileName}"
         coffeeOptions = {
-            bare: options.bare ? false
+            bare: options.bare ? true
             literate: CoffeeScript.helpers.isLiterate(fileName)
             filename: fileName
             sourceFiles: [fileName]

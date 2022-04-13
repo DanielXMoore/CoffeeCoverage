@@ -7,6 +7,7 @@
   - Fixed stack traces in Node.js
   - Removed deprecated streamlinejs < 1.x support
   - Updated / Removed vulnerable dependencies
+  - Defaulting to `bare`, can pass `bare: false` explicity to wrap in a function.
   - [globs with leading forward slash should match relative to project root](https://github.com/benbria/coffee-coverage/pull/77)
 
 ### v3.0.0
